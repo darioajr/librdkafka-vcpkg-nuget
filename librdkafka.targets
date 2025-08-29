@@ -9,7 +9,7 @@
     <Link>
       <AdditionalLibraryDirectories>$(MSBuildThisFileDirectory)lib\x64\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>
-        rdkafka.lib;rdkafka++.lib;%(AdditionalDependencies)
+        lz4.lib;rdkafka.lib;rdkafka++.lib;%(AdditionalDependencies)
       </AdditionalDependencies>
     </Link>
 
@@ -27,7 +27,7 @@
     <Link>
       <AdditionalLibraryDirectories>$(MSBuildThisFileDirectory)lib\x64\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>
-        rdkafka.lib;rdkafka++.lib;%(AdditionalDependencies)
+        lz4d.lib;rdkafka.lib;rdkafka++.lib;%(AdditionalDependencies)
       </AdditionalDependencies>
     </Link>
 
