@@ -6,6 +6,10 @@ on:
       - '*'
   workflow_dispatch:
 
+permissions:
+  contents: write
+  packages: write
+
 jobs:
   build:
     runs-on: windows-latest
@@ -53,7 +57,7 @@ jobs:
           name: Release ${{ env.PACKAGE_VERSION }}
           tag_name: ${{ env.PACKAGE_VERSION }}
           files: |
-            ${{env.GITHUB_WORKSPACE}}\out\*.nupkg
+            out/*.nupkg
           draft: false
           prerelease: false
           generate_release_notes: true
