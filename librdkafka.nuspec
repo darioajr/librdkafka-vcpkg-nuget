@@ -29,7 +29,7 @@
 
     <file src="vcpkg_installed\x64-windows\debug\lib\rdkafka.lib" target="build\native\lib\x64\Debug" />
     <file src="vcpkg_installed\x64-windows\debug\lib\rdkafka++.lib" target="build\native\lib\x64\Debug" />
-    <file src="vcpkg_installed\x64-windows\debug\lib\lz4.lib" target="build\native\lib\x64\Debug" />
+    <file src="vcpkg_installed\x64-windows\debug\lib\lz4d.lib" target="build\native\lib\x64\Debug" />
 
 
     <!-- DLL (if dynamic linking is used) -->
