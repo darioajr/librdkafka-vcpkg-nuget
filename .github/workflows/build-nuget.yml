@@ -1,0 +1,68 @@
+name: Build librdkafka NuGet Package
+
+on:
+  push:
+    tags:
+      - '*'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    env:
+      VCPKG_ROOT: ${{ github.workspace }}\vcpkg
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Obter versão do librdkafka via vcpkg.json
+        id: get-version
+        shell: pwsh
+        run: |
+          $json = Get-Content -Raw -Path "vcpkg.json" | ConvertFrom-Json
+          $override = $json.overrides | Where-Object { $_.name -eq "librdkafka" }
+          $version = if ($override.version) { $override.version } else { "2.10.1" }
+          echo "Versão: $version"
+          echo "PACKAGE_VERSION=$version" >> $env:GITHUB_OUTPUT
+
+      - name: Setup NuGet
+        uses: NuGet/setup-nuget@v1
+
+      - name: Install vcpkg
+        run: |
+          git clone https://github.com/microsoft/vcpkg.git
+          git -C vcpkg pull
+          .\vcpkg\bootstrap-vcpkg.bat
+          .\vcpkg\vcpkg.exe integrate install
+
+      - name: Install librdkafka with vcpkg
+        run: .\vcpkg\vcpkg.exe install --triplet x64-windows
+
+      - name: Pack NuGet package
+        run: |
+          nuget pack librdkafka.nuspec -OutputDirectory out
+
+      - name: Publish on NuGet.org
+        run: nuget push out\*.nupkg -ApiKey ${{ secrets.NUGET_API_KEY }} -Source https://api.nuget.org/v3/index.json
+
+      - name: Release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: Release ${{ env.PACKAGE_VERSION }}
+          tag_name: ${{ env.PACKAGE_VERSION }}
+          files: |
+            ${{env.GITHUB_WORKSPACE}}\out\*.nupkg
+          draft: false
+          prerelease: false
+          generate_release_notes: true
+          make_latest: true
+          fail_on_unmatched_files: false
+          token: ${{ secrets.GITHUB_TOKEN }}
+  
+      - name: Upload NuGet artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: librdkafka-nupkg
+          path: out\*.nupkg

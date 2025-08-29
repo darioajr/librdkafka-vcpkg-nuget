@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+  <metadata>
+    <id>librdkafka.vcpkg</id>
+    <version>2.10.1</version>
+    <authors>Confluentinc</authors>
+    <owners>Dario Alves Junior</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <license type="expression">Apache-2.0</license>
+    <projectUrl>https://github.com/darioajr/librdkafka-vcpkg-nuget</projectUrl>
+    <description>librdkafka build from vcpkg for Windows x64 vc143 (Visual Studio 2022)</description>
+    <tags>native librdkafka vcpkg c++ kafka</tags>
+    <readme>README.md</readme>
+  </metadata>
+  <files>
+    
+    <file src="README.md" target="" />
+    
+    <!-- Headers -->
+    <file src="vcpkg_installed\x64-windows\include\**\*.*" target="build\native\include" />
+
+    <!-- Static lib -->
+    <file src="vcpkg_installed\x64-windows\lib\rdkafka.lib" target="build\native\lib\x64\Release" />
+    <file src="vcpkg_installed\x64-windows\lib\rdkafka++.lib" target="build\native\lib\x64\Release" />
+
+    <file src="vcpkg_installed\x64-windows\debug\lib\rdkafka.lib" target="build\native\lib\x64\Debug" />
+    <file src="vcpkg_installed\x64-windows\debug\lib\rdkafka++.lib" target="build\native\lib\x64\Debug" />
+
+
+    <!-- DLL (if dynamic linking is used) -->
+    <file src="vcpkg_installed\x64-windows\bin\rdkafka.dll" target="build\native\bin\x64\Release" />
+    <file src="vcpkg_installed\x64-windows\bin\rdkafka.pdb" target="build\native\bin\x64\Release" />
+    <file src="vcpkg_installed\x64-windows\bin\rdkafka++.dll" target="build\native\bin\x64\Release" />
+    <file src="vcpkg_installed\x64-windows\bin\rdkafka++.pdb" target="build\native\bin\x64\Release" />
+
+    <file src="vcpkg_installed\x64-windows\debug\bin\rdkafka.dll" target="build\native\bin\x64\Debug" />
+    <file src="vcpkg_installed\x64-windows\debug\bin\rdkafka.pdb" target="build\native\bin\x64\Debug" />
+    <file src="vcpkg_installed\x64-windows\debug\bin\rdkafka++.dll" target="build\native\bin\x64\Debug" />
+    <file src="vcpkg_installed\x64-windows\debug\bin\rdkafka++.pdb" target="build\native\bin\x64\Debug" />
+
+  </files>
+</package>
