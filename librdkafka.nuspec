@@ -16,6 +16,9 @@
     
     <file src="README.md" target="" />
     
+    <!-- MSBuild targets file -->
+    <file src="librdkafka.targets" target="build\native\librdkafka.vcpkg.targets" />
+    
     <!-- Headers -->
     <file src="vcpkg_installed\x64-windows\include\**\*.*" target="build\native\include" />
 
